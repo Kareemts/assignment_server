@@ -1,7 +1,7 @@
 const {
   getUsers,
-  createUser,
   getOrders,
+  filterOrders,
 } = require("../controllers/userController");
 
 const router = require("express").Router();
@@ -10,6 +10,6 @@ router.get("/users", getUsers);
 
 router.get("/orders", getOrders);
 
-router.post("/user", createUser);
+router.post("/filter", filterOrders);
 
 module.exports = router;
