@@ -20,15 +20,18 @@ const users = async (data) => {
   const limit = parseInt(data.limit) || 5;
   const skip = (page - 1) * limit;
 
-  const users = await prisma.users.findMany({
-    include: {
-      orders: true,
-    },
-    skip,
-    take: limit,
-  });
+  const [users, Total_users] = await Promise.all([
+    prisma.users.findMany({
+      include: {
+        orders: true,
+      },
+      skip,
+      take: limit,
+    }),
+    prisma.users.count(),
+  ]);
 
-  return users;
+  return { Total_users, users };
 };
 
 const orders = async () => {
